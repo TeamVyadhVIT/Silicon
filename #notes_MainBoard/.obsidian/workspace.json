@@ -1,0 +1,193 @@
+{
+  "main": {
+    "id": "620d158d73946929",
+    "type": "split",
+    "children": [
+      {
+        "id": "6c0aa3d615e1e57e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d037198ddf6ce7ee",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "MainBoard progress.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "MainBoard progress"
+            }
+          },
+          {
+            "id": "a341e72f01449da2",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.9.10"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.9.10"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e7ca1024c9690479",
+    "type": "split",
+    "children": [
+      {
+        "id": "ede062ed80bf743e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8c24b37df9f63ed5",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "885aa70093b1650f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "3f555db1b7d716cb",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "b2e60fa328458f5b",
+    "type": "split",
+    "children": [
+      {
+        "id": "c1ec032861b2e516",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "90820c23e6517f24",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "MainBoard progress.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for MainBoard progress"
+            }
+          },
+          {
+            "id": "152c8ebcf7b4d009",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "MainBoard progress.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from MainBoard progress"
+            }
+          },
+          {
+            "id": "850f3f664062c275",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "f986eb2bfcb7418d",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "MainBoard progress.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of MainBoard progress"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "bases:Create new base": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "a341e72f01449da2",
+  "lastOpenFiles": [
+    "Standards.md",
+    "MainBoard progress.md",
+    "first working prototype.mkv",
+    "2025-08-13 00-22-38.mkv",
+    "temp file (delete later).md"
+  ]
+}

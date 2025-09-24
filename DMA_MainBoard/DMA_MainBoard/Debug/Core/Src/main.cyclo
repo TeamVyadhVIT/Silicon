@@ -1,0 +1,12 @@
+../Core/Src/main.c:124:6:storeMessage	6
+../Core/Src/main.c:171:12:findMessage	4
+../Core/Src/main.c:197:6:processMessage	8
+../Core/Src/main.c:277:6:HAL_UARTEx_RxEventCallback	4
+../Core/Src/main.c:318:5:main	1
+../Core/Src/main.c:378:6:SystemClock_Config	3
+../Core/Src/main.c:418:13:MX_USART1_UART_Init	2
+../Core/Src/main.c:451:13:MX_USART2_UART_Init	2
+../Core/Src/main.c:484:13:MX_USART3_UART_Init	2
+../Core/Src/main.c:515:13:MX_DMA_Init	1
+../Core/Src/main.c:548:13:MX_GPIO_Init	1
+../Core/Src/main.c:585:6:Error_Handler	1

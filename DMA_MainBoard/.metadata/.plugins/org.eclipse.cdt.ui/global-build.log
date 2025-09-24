@@ -1,0 +1,715 @@
+00:12:21 **** Incremental Build of configuration Debug for project DMA_MainBoard ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'storeMessage':
+../Core/Src/main.c:131:41: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  131 |                         int n = sprintf(debug, "stored data in record index %u: ", i);
+      |                                         ^~~~~
+      |                                         |
+      |                                         uint8_t * {aka unsigned char *}
+In file included from ../Core/Src/main.c:28:
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:136:45: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  136 |                                 n = sprintf(debug, "%02X ", &record[i].data);
+      |                                             ^~~~~
+      |                                             |
+      |                                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:136:56: warning: format '%X' expects argument of type 'unsigned int', but argument 3 has type 'uint8_t (*)[64]' {aka 'unsigned char (*)[64]'} [-Wformat=]
+  136 |                                 n = sprintf(debug, "%02X ", &record[i].data);
+      |                                                     ~~~^    ~~~~~~~~~~~~~~~
+      |                                                        |    |
+      |                                                        |    uint8_t (*)[64] {aka unsigned char (*)[64]}
+      |                                                        unsigned int
+../Core/Src/main.c:140:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  140 |                         n = sprintf(debug, "\n");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:152:41: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  152 |                         int n = sprintf(debug, "stored data in record index %u: ", i);
+      |                                         ^~~~~
+      |                                         |
+      |                                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:157:45: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  157 |                                 n = sprintf(debug, "%02X ", &record[i].data);
+      |                                             ^~~~~
+      |                                             |
+      |                                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:157:56: warning: format '%X' expects argument of type 'unsigned int', but argument 3 has type 'uint8_t (*)[64]' {aka 'unsigned char (*)[64]'} [-Wformat=]
+  157 |                                 n = sprintf(debug, "%02X ", &record[i].data);
+      |                                                     ~~~^    ~~~~~~~~~~~~~~~
+      |                                                        |    |
+      |                                                        |    uint8_t (*)[64] {aka unsigned char (*)[64]}
+      |                                                        unsigned int
+../Core/Src/main.c:161:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  161 |                         n = sprintf(debug, "\n");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'findMessage':
+../Core/Src/main.c:177:41: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  177 |                         int n = sprintf(debug, "found data in record index %u: ", i);
+      |                                         ^~~~~
+      |                                         |
+      |                                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:182:45: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  182 |                                 n = sprintf(debug, "%02X ", &record[i].data);
+      |                                             ^~~~~
+      |                                             |
+      |                                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:182:56: warning: format '%X' expects argument of type 'unsigned int', but argument 3 has type 'uint8_t (*)[64]' {aka 'unsigned char (*)[64]'} [-Wformat=]
+  182 |                                 n = sprintf(debug, "%02X ", &record[i].data);
+      |                                                     ~~~^    ~~~~~~~~~~~~~~~
+      |                                                        |    |
+      |                                                        |    uint8_t (*)[64] {aka unsigned char (*)[64]}
+      |                                                        unsigned int
+../Core/Src/main.c:186:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  186 |                         n = sprintf(debug, "\n");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'processMessage':
+../Core/Src/main.c:210:25: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  210 |         int n = sprintf(debug, "processMessage called with message type = %u\n", msg->type); //the 3rd argument is fixing endian-ness -interpreting the incoming message as big-endian
+      |                         ^~~~~
+      |                         |
+      |                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:213:21: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  213 |         n = sprintf(debug, "received data: ");
+      |                     ^~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:218:29: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  218 |                 n = sprintf(debug, "%02X ", msg->data[i]);
+      |                             ^~~~~
+      |                             |
+      |                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:222:21: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  222 |         n = sprintf(debug, "\n");
+      |                     ^~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:231:33: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  231 |                 int n = sprintf(debug, "Publishing ID=%u\n", msg->ID);
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:241:33: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  241 |                 int n = sprintf(debug, "Subscribe request ID=%u\n", msg->ID);
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:252:41: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  252 |                         int n = sprintf(debug, "Response ID=%u %s\n", msg->ID, found ? "message found" : "message not found");
+      |                                         ^~~~~
+      |                                         |
+      |                                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:260:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  260 |                         n = sprintf(debug, "transmitted data: ");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:265:45: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  265 |                                 n = sprintf(debug, "%02X ", txBuff[i]);
+      |                                             ^~~~~
+      |                                             |
+      |                                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:269:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  269 |                         n = sprintf(debug, "\n");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'HAL_UARTEx_RxEventCallback':
+../Core/Src/main.c:286:33: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  286 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:297:33: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  297 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:306:21: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  306 |     int n = sprintf(debug, "\n");
+      |                     ^~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:358:25: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  358 |         int n = sprintf(debug, "STM32 start debug\n");
+      |                         ^~~~~
+      |                         |
+      |                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'HAL_UARTEx_RxEventCallback':
+../Core/Src/main.c:297:87: warning: ', huart->RxState=' directive writing 17 bytes into a region of size between 15 and 19 [-Wformat-overflow=]
+  297 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                                                                       ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:297:40: note: directive argument in the range [0, 255]
+  297 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:297:25: note: 'sprintf' output between 66 and 72 bytes into a destination of size 64
+  297 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:286:87: warning: ', huart->RxState=' directive writing 17 bytes into a region of size between 15 and 19 [-Wformat-overflow=]
+  286 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                                                                       ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:286:40: note: directive argument in the range [0, 255]
+  286 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:286:25: note: 'sprintf' output between 66 and 72 bytes into a destination of size 64
+  286 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "DMA_MainBoard.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Z\projects\vyadh\DMA_Middleman\DMA_MainBoard\DMA_MainBoard\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DMA_MainBoard.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: DMA_MainBoard.elf
+ 
+arm-none-eabi-size  DMA_MainBoard.elf 
+arm-none-eabi-objdump -h -S DMA_MainBoard.elf  > "DMA_MainBoard.list"
+   text	   data	    bss	    dec	    hex	filename
+  17116	     92	   6196	  23404	   5b6c	DMA_MainBoard.elf
+Finished building: default.size.stdout
+ 
+Finished building: DMA_MainBoard.list
+ 
+00:12:24 **** Incremental Build of configuration Debug for project DMA_MainBoard ****
+make -j16 all 
+arm-none-eabi-size  DMA_MainBoard.elf 
+   text	   data	    bss	    dec	    hex	filename
+  17116	     92	   6196	  23404	   5b6c	DMA_MainBoard.elf
+Finished building: default.size.stdout
+ 
+00:18:22 **** Incremental Build of configuration Debug for project DMA_MainBoard ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'storeMessage':
+../Core/Src/main.c:131:41: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  131 |                         int n = sprintf(debug, "stored data in record index %u: ", i);
+      |                                         ^~~~~
+      |                                         |
+      |                                         uint8_t * {aka unsigned char *}
+In file included from ../Core/Src/main.c:28:
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:136:45: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  136 |                                 n = sprintf(debug, "%02X ", record[i].data[j]);
+      |                                             ^~~~~
+      |                                             |
+      |                                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:140:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  140 |                         n = sprintf(debug, "\n");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:152:41: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  152 |                         int n = sprintf(debug, "stored data in record index %u: ", i);
+      |                                         ^~~~~
+      |                                         |
+      |                                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:157:45: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  157 |                                 n = sprintf(debug, "%02X ", record[i].data[j]);
+      |                                             ^~~~~
+      |                                             |
+      |                                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:161:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  161 |                         n = sprintf(debug, "\n");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'findMessage':
+../Core/Src/main.c:177:41: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  177 |                         int n = sprintf(debug, "found data in record index %u: ", i);
+      |                                         ^~~~~
+      |                                         |
+      |                                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:182:45: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  182 |                                 n = sprintf(debug, "%02X ", record[i].data[j]);
+      |                                             ^~~~~
+      |                                             |
+      |                                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:186:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  186 |                         n = sprintf(debug, "\n");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'processMessage':
+../Core/Src/main.c:210:25: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  210 |         int n = sprintf(debug, "processMessage called with message type = %u\n", msg->type); //the 3rd argument is fixing endian-ness -interpreting the incoming message as big-endian
+      |                         ^~~~~
+      |                         |
+      |                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:213:21: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  213 |         n = sprintf(debug, "received data: ");
+      |                     ^~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:218:29: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  218 |                 n = sprintf(debug, "%02X ", msg->data[i]);
+      |                             ^~~~~
+      |                             |
+      |                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:222:21: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  222 |         n = sprintf(debug, "\n");
+      |                     ^~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:231:33: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  231 |                 int n = sprintf(debug, "Publishing ID=%u\n", msg->ID);
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:241:33: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  241 |                 int n = sprintf(debug, "Subscribe request ID=%u\n", msg->ID);
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:252:41: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  252 |                         int n = sprintf(debug, "Response ID=%u %s\n", msg->ID, found ? "message found" : "message not found");
+      |                                         ^~~~~
+      |                                         |
+      |                                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:260:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  260 |                         n = sprintf(debug, "transmitted data: ");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:265:45: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  265 |                                 n = sprintf(debug, "%02X ", txBuff[i]);
+      |                                             ^~~~~
+      |                                             |
+      |                                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:269:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  269 |                         n = sprintf(debug, "\n");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'HAL_UARTEx_RxEventCallback':
+../Core/Src/main.c:286:33: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  286 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:297:33: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  297 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:306:21: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  306 |     int n = sprintf(debug, "\n");
+      |                     ^~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:358:25: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  358 |         int n = sprintf(debug, "STM32 start debug\n");
+      |                         ^~~~~
+      |                         |
+      |                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'HAL_UARTEx_RxEventCallback':
+../Core/Src/main.c:297:87: warning: ', huart->RxState=' directive writing 17 bytes into a region of size between 15 and 19 [-Wformat-overflow=]
+  297 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                                                                       ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:297:40: note: directive argument in the range [0, 255]
+  297 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:297:25: note: 'sprintf' output between 66 and 72 bytes into a destination of size 64
+  297 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:286:87: warning: ', huart->RxState=' directive writing 17 bytes into a region of size between 15 and 19 [-Wformat-overflow=]
+  286 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                                                                       ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:286:40: note: directive argument in the range [0, 255]
+  286 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:286:25: note: 'sprintf' output between 66 and 72 bytes into a destination of size 64
+  286 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "DMA_MainBoard.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Z\projects\vyadh\DMA_Middleman\DMA_MainBoard\DMA_MainBoard\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DMA_MainBoard.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: DMA_MainBoard.elf
+ 
+arm-none-eabi-size  DMA_MainBoard.elf 
+arm-none-eabi-objdump -h -S DMA_MainBoard.elf  > "DMA_MainBoard.list"
+   text	   data	    bss	    dec	    hex	filename
+  17140	     92	   6196	  23428	   5b84	DMA_MainBoard.elf
+Finished building: default.size.stdout
+ 
+Finished building: DMA_MainBoard.list
+ 
+23:37:25 **** Build of configuration Debug for project DMA_MainBoard ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'storeMessage':
+../Core/Src/main.c:131:41: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  131 |                         int n = sprintf(debug, "stored data in record index %u: ", i);
+      |                                         ^~~~~
+      |                                         |
+      |                                         uint8_t * {aka unsigned char *}
+In file included from ../Core/Src/main.c:28:
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:136:45: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  136 |                                 n = sprintf(debug, "%02X ", record[i].data[j]);
+      |                                             ^~~~~
+      |                                             |
+      |                                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:140:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  140 |                         n = sprintf(debug, "\n");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:152:41: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  152 |                         int n = sprintf(debug, "stored data in record index %u: ", i);
+      |                                         ^~~~~
+      |                                         |
+      |                                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:157:45: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  157 |                                 n = sprintf(debug, "%02X ", record[i].data[j]);
+      |                                             ^~~~~
+      |                                             |
+      |                                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:161:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  161 |                         n = sprintf(debug, "\n");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'findMessage':
+../Core/Src/main.c:177:41: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  177 |                         int n = sprintf(debug, "found data in record index %u: ", i);
+      |                                         ^~~~~
+      |                                         |
+      |                                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:182:45: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  182 |                                 n = sprintf(debug, "%02X ", record[i].data[j]);
+      |                                             ^~~~~
+      |                                             |
+      |                                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:186:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  186 |                         n = sprintf(debug, "\n");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'processMessage':
+../Core/Src/main.c:210:25: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  210 |         int n = sprintf(debug, "processMessage called with message type = %u\n", msg->type); //the 3rd argument is fixing endian-ness -interpreting the incoming message as big-endian
+      |                         ^~~~~
+      |                         |
+      |                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:213:21: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  213 |         n = sprintf(debug, "received data: ");
+      |                     ^~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:218:29: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  218 |                 n = sprintf(debug, "%02X ", msg->data[i]);
+      |                             ^~~~~
+      |                             |
+      |                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:222:21: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  222 |         n = sprintf(debug, "\n");
+      |                     ^~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:231:33: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  231 |                 int n = sprintf(debug, "Publishing ID=%u\n", msg->ID);
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:241:33: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  241 |                 int n = sprintf(debug, "Subscribe request ID=%u\n", msg->ID);
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:252:41: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  252 |                         int n = sprintf(debug, "Response ID=%u %s\n", msg->ID, found ? "message found" : "message not found");
+      |                                         ^~~~~
+      |                                         |
+      |                                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:260:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  260 |                         n = sprintf(debug, "transmitted data: ");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:265:45: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  265 |                                 n = sprintf(debug, "%02X ", txBuff[i]);
+      |                                             ^~~~~
+      |                                             |
+      |                                             uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:269:37: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  269 |                         n = sprintf(debug, "\n");
+      |                                     ^~~~~
+      |                                     |
+      |                                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'HAL_UARTEx_RxEventCallback':
+../Core/Src/main.c:286:33: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  286 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:297:33: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  297 |                 int n = sprintf(debug, "USART3 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c:306:21: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  306 |     int n = sprintf(debug, "\n");
+      |                     ^~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:358:25: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  358 |         int n = sprintf(debug, "STM32 start debug\n");
+      |                         ^~~~~
+      |                         |
+      |                         uint8_t * {aka unsigned char *}
+C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:250:18: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  250 | int     sprintf (char *__restrict, const char *__restrict, ...)
+      |                  ^
+../Core/Src/main.c: In function 'HAL_UARTEx_RxEventCallback':
+../Core/Src/main.c:297:87: warning: ', huart->RxState=' directive writing 17 bytes into a region of size between 15 and 19 [-Wformat-overflow=]
+  297 |                 int n = sprintf(debug, "USART3 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                                                                       ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:297:40: note: directive argument in the range [0, 255]
+  297 |                 int n = sprintf(debug, "USART3 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:297:25: note: 'sprintf' output between 66 and 72 bytes into a destination of size 64
+  297 |                 int n = sprintf(debug, "USART3 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:286:87: warning: ', huart->RxState=' directive writing 17 bytes into a region of size between 15 and 19 [-Wformat-overflow=]
+  286 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                                                                       ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:286:40: note: directive argument in the range [0, 255]
+  286 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:286:25: note: 'sprintf' output between 66 and 72 bytes into a destination of size 64
+  286 |                 int n = sprintf(debug, "USART2 rx complete callback. log data: Size=%u, huart->RxState=%u \n", Size, huart->RxState);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "DMA_MainBoard.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Z\projects\vyadh\DMA_Middleman\DMA_MainBoard\DMA_MainBoard\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DMA_MainBoard.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: DMA_MainBoard.elf
+ 
+arm-none-eabi-size  DMA_MainBoard.elf 
+arm-none-eabi-objdump -h -S DMA_MainBoard.elf  > "DMA_MainBoard.list"
+   text	   data	    bss	    dec	    hex	filename
+  17212	     92	   6196	  23500	   5bcc	DMA_MainBoard.elf
+Finished building: default.size.stdout
+ 
+Finished building: DMA_MainBoard.list
+ 
+23:38:18 **** Incremental Build of configuration Debug for project DMA_MainBoard ****
+make -j16 all 
+arm-none-eabi-size  DMA_MainBoard.elf 
+   text	   data	    bss	    dec	    hex	filename
+  17212	     92	   6196	  23500	   5bcc	DMA_MainBoard.elf
+Finished building: default.size.stdout
+ 
+23:44:23 **** Incremental Build of configuration Debug for project DMA_MainBoard ****
+make -j16 all 
+arm-none-eabi-size  DMA_MainBoard.elf 
+   text	   data	    bss	    dec	    hex	filename
+  17212	     92	   6196	  23500	   5bcc	DMA_MainBoard.elf
+Finished building: default.size.stdout
+ 
+00:31:19 **** Incremental Build of configuration Debug for project DMA_MainBoard ****
+make -j16 all 
+arm-none-eabi-size  DMA_MainBoard.elf 
+   text	   data	    bss	    dec	    hex	filename
+  17212	     92	   6196	  23500	   5bcc	DMA_MainBoard.elf
+Finished building: default.size.stdout
+ 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="true"/>
+	<list key="searchhistory">
+		<item value="&amp;record[i]-&gt;data"/>
+		<item value="HAL_UART_Transmit_IT(&amp;huart1, debug, n);"/>
+		<item value="HAL_UART_Transmit_IT(&amp;huart1, debug, n, HAL_MAX_DELAY);"/>
+		<item value="HAL_UART_Transmit(&amp;huart1, debug, n, HAL_MAX_DELAY);"/>
+		<item value="HAL_UART_Transmit_DMA(&amp;huart1, debug, n);"/>
+		<item value="HAL_UART_Transmit_DMA(&amp;huart1, debug, n, 100);"/>
+		<item value="HAL_UART_Transmit("/>
+		<item value="HAL_UART_Transmit"/>
+		<item value="uart2"/>
+		<item value="_DMA"/>
+		<item value="UART2"/>
+		<item value="HAL_UART_"/>
+		<item value="HAL_UART_RxCpltCallback"/>
+	</list>
+	<list key="replacehistory">
+		<item value="&amp;record[i].data"/>
+		<item value="HAL_UART_Transmit(&amp;huart1, debug, n, HAL_MAX_DELAY);"/>
+		<item value="HAL_UART_Transmit_IT(&amp;huart1, debug, n);"/>
+		<item value="HAL_UART_Transmit_IT(&amp;huart1, debug, n, HAL_MAX_DELAY);"/>
+		<item value="HAL_UART_Transmit_DMA(&amp;huart1, debug, n);"/>
+		<item value="HAL_UART_Transmit_DMA("/>
+		<item value="HAL_UART_Transmit_DMA"/>
+		<item value="uart3"/>
+		<item value="UART3"/>
+	</list>
+</section>

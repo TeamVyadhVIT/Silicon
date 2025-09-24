@@ -1,0 +1,12 @@
+../Core/Src/main.c:124:6:storeMessage	104	static
+../Core/Src/main.c:171:12:findMessage	96	static
+../Core/Src/main.c:197:6:processMessage	248	static
+../Core/Src/main.c:277:6:HAL_UARTEx_RxEventCallback	168	static
+../Core/Src/main.c:318:5:main	80	static
+../Core/Src/main.c:378:6:SystemClock_Config	72	static
+../Core/Src/main.c:418:13:MX_USART1_UART_Init	8	static
+../Core/Src/main.c:451:13:MX_USART2_UART_Init	8	static
+../Core/Src/main.c:484:13:MX_USART3_UART_Init	8	static
+../Core/Src/main.c:515:13:MX_DMA_Init	16	static
+../Core/Src/main.c:548:13:MX_GPIO_Init	40	static
+../Core/Src/main.c:585:6:Error_Handler	4	static,ignoring_inline_asm

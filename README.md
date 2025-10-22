@@ -7,7 +7,7 @@ It uses six PWM channels for motor control and six GPIO pins for setting the dir
 The design also enables pins to support **I²C** and **CAN** communication.
 
 ##  Future Changes
-- A **Nano** will be used to receive feedback from encoders.  
+- **Nano** will be used to receive feedback from encoders.  
 - This will be integrated with the **CAN bus**.  
 - It will also communicate with the controller via **LoRa**.
 

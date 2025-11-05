@@ -1,5 +1,5 @@
 import asyncio, serial_asyncio
-PORT="COM15"; BAUD=115200; DELAY=0
+PORT="COM8"; BAUD=115200; DELAY=0
 frames=[b"+200+200\n", b"+200+100\n", b"+100+100\n", b"+140-230\n"]
 
 class Echo(asyncio.Protocol):

@@ -40,12 +40,17 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+CAN_HandleTypeDef hcan;
+
 UART_HandleTypeDef huart1;
 DMA_HandleTypeDef hdma_usart1_rx;
 
 /* USER CODE BEGIN PV */
-#define RX_BUF_SIZE 18
+#define RX_BUF_SIZE 18                 // two 9B frames: [0..8] and [9..17]
 uint8_t rx_buf[RX_BUF_SIZE];
+
+static CAN_TxHeaderTypeDef tx;
+static uint32_t canMailbox;
 
 
 /* USER CODE END PV */
@@ -55,6 +60,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_CAN_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -95,9 +101,24 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_USART1_UART_Init();
+  MX_CAN_Init();
   /* USER CODE BEGIN 2 */
-  // Start UART1 DMA in circular mode
+
+
   HAL_UART_Receive_DMA(&huart1, rx_buf, RX_BUF_SIZE);
+
+  // Accept-all CAN filter to FIFO0 (needed even in loopback)
+
+
+  // Start CAN and enable RX FIFO0 notification (for loopback receive)
+  HAL_CAN_Start(&hcan);
+
+                  tx.StdId = 0x100;        // your CAN ID
+  	              tx.ExtId = 0;
+  	              tx.IDE   = CAN_ID_STD;
+  	              tx.RTR   = CAN_RTR_DATA;
+  	              tx.DLC   = 8;
+  	              tx.TransmitGlobalTime = DISABLE;
 
 
   /* USER CODE END 2 */
@@ -109,6 +130,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    // nothing; all work happens in IRQ/DMAs
   }
   /* USER CODE END 3 */
 }
@@ -153,6 +175,40 @@ void SystemClock_Config(void)
 }
 
 /**
+  * @brief CAN Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_CAN_Init(void)
+{
+
+  /* USER CODE BEGIN CAN_Init 0 */
+  /* USER CODE END CAN_Init 0 */
+
+  /* USER CODE BEGIN CAN_Init 1 */
+  /* USER CODE END CAN_Init 1 */
+  hcan.Instance = CAN1;
+  hcan.Init.Prescaler = 2;
+  hcan.Init.Mode = CAN_MODE_NORMAL;
+  hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;
+  hcan.Init.TimeSeg1 = CAN_BS1_15TQ;
+  hcan.Init.TimeSeg2 = CAN_BS2_2TQ;
+  hcan.Init.TimeTriggeredMode = DISABLE;
+  hcan.Init.AutoBusOff = ENABLE;
+  hcan.Init.AutoWakeUp = ENABLE;
+  hcan.Init.AutoRetransmission = ENABLE;
+  hcan.Init.ReceiveFifoLocked = DISABLE;
+  hcan.Init.TransmitFifoPriority = DISABLE;
+  if (HAL_CAN_Init(&hcan) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN CAN_Init 2 */
+  /* USER CODE END CAN_Init 2 */
+
+}
+
+/**
   * @brief USART1 Initialization Function
   * @param None
   * @retval None
@@ -161,11 +217,9 @@ static void MX_USART1_UART_Init(void)
 {
 
   /* USER CODE BEGIN USART1_Init 0 */
-
   /* USER CODE END USART1_Init 0 */
 
   /* USER CODE BEGIN USART1_Init 1 */
-
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
   huart1.Init.BaudRate = 115200;
@@ -180,7 +234,6 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-
   /* USER CODE END USART1_Init 2 */
 
 }
@@ -208,53 +261,47 @@ static void MX_DMA_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
   /* USER CODE BEGIN MX_GPIO_Init_1 */
-
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : PC13 */
-  GPIO_InitStruct.Pin = GPIO_PIN_13;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
   /* USER CODE BEGIN MX_GPIO_Init_2 */
-
   /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
-// Called when first half (0–7) of buffer is filled
+
+// UART DMA HALF: indices [0..8]  (9 bytes: 8 data + '\n')
 void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart)
 {
-    if (huart == &huart1)
+  if (huart == &huart1)
+  {
+    if (rx_buf[8] == '\n')
     {
-        HAL_UART_Transmit(&huart1, &rx_buf[0], RX_BUF_SIZE / 2, HAL_MAX_DELAY);
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);   // LED OFF initially (active-low)
-
+    	uint8_t d[8];
+    	    for (int i = 0; i < 8; ++i) d[i] = rx_buf[i];
+    	    (void)HAL_CAN_AddTxMessage(&hcan, &tx, d, &canMailbox);
     }
+  }
 }
 
-// Called when second half (8–15) of buffer is filled
+// UART DMA FULL: indices [9..17] (9 bytes: 8 data + '\n')
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-    if (huart == &huart1)
+  if (huart == &huart1)
+  {
+    if (rx_buf[17] == '\n')
     {
-        HAL_UART_Transmit(&huart1, &rx_buf[RX_BUF_SIZE / 2], RX_BUF_SIZE / 2, HAL_MAX_DELAY);
-
-
+    	uint8_t d[8];
+    	    for (int i = 0; i < 8; ++i) d[i] = rx_buf[9 + i];
+    	    (void)HAL_CAN_AddTxMessage(&hcan, &tx, d, &canMailbox);
     }
+  }
 }
+
 
 
 /* USER CODE END 4 */
@@ -266,11 +313,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
-  while (1)
-  {
-  }
+  while (1) { }
   /* USER CODE END Error_Handler_Debug */
 }
 #ifdef USE_FULL_ASSERT
@@ -284,8 +328,6 @@ void Error_Handler(void)
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */

@@ -16,7 +16,7 @@ bool dir = 0;
 
 void isr() {
   counter++;
-  // motor_dir = digitalRead(3);
+  motor_dir = digitalRead(3);
 }
 
 void setup() {

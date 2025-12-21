@@ -10,8 +10,10 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-    int incomingByte = Serial.read();
+    String incomingByte = Serial.readString();
+    int angle = incomingByte.toInt();
+    Serial.print("angle: "); Serial.println(angle);
 
-    Serial.println(incomingByte);
+    ser1.write(angle);
   }
 }

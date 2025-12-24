@@ -31,7 +31,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define ENCODER_GEAR 9.0f
+#define WHEEL_GEAR   108.0f
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -42,6 +43,7 @@
 /* Private variables ---------------------------------------------------------*/
 CAN_HandleTypeDef hcan;
 
+TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim4;
@@ -51,8 +53,15 @@ DMA_HandleTypeDef hdma_usart1_rx;
 
 /* USER CODE BEGIN PV */
 volatile uint8_t UART1_rxBuffer[2];
-volatile uint16_t TIM3_A[1];
-volatile uint16_t TIM3_B[1];
+
+volatile uint32_t tick_stack_TIM3[2] = {0, 0};
+volatile uint32_t TIM3_CNT_stack[2] = {0, 0};
+
+volatile uint32_t tick_stack_TIM4[2] = {0, 0};
+volatile uint32_t TIM4_CNT_stack[2] = {0, 0};
+
+uint32_t RPM_A;
+uint32_t RPM_B;
 
 /* USER CODE END PV */
 
@@ -65,18 +74,19 @@ static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 //	if (huart->Instance == USART1) {
 //	    HAL_UART_Transmit(&huart1, UART1_rxBuffer, 2, HAL_MAX_DELAY);
 //
 //	}
-}
+//}
 
 void setMotor(uint8_t joystick[2]) {
     int x = (int)joystick[0] - 127;
@@ -113,6 +123,59 @@ void setMotor(uint8_t joystick[2]) {
 		TIM2->CCR2 = 0;
     }
 }
+
+#define RPM_SAMPLE_PERIOD_US 5000
+
+void updateAndCapture(volatile uint32_t tick_stack[2],
+					  volatile uint32_t TIMx_CNT_stack[2],
+					  TIM_TypeDef *tick_TIMx,
+					  TIM_TypeDef *enc_TIMx)
+{
+	static uint32_t last_sample_us = 0;
+	uint32_t now = tick_TIMx->CNT;
+	if ((uint32_t)(now - last_sample_us) < RPM_SAMPLE_PERIOD_US) return;
+	last_sample_us = now;
+
+	tick_stack[1] = tick_stack[0];
+	TIMx_CNT_stack[1] = TIMx_CNT_stack[0];
+	tick_stack[0] = tick_TIMx->CNT;
+	TIMx_CNT_stack[0] = enc_TIMx->CNT;
+}
+
+//void updateAndCapture(volatile uint32_t tick_stack[2],
+//					  volatile uint32_t TIMx_CNT_stack[2],
+//					  TIM_TypeDef *tick_TIMx,
+//					  TIM_TypeDef *enc_TIMx)
+//{
+//	tick_stack[1] = tick_stack[0];
+//	TIMx_CNT_stack[1] = TIMx_CNT_stack[0];
+//	tick_stack[0] = tick_TIMx->CNT;
+//	TIMx_CNT_stack[0] = enc_TIMx->CNT;
+//}
+
+uint32_t calculateRPM(volatile uint32_t tick_stack[2],
+					  volatile uint32_t cnt_stack[2],
+					  int PPR,
+					  float encoder_gear_ratio,
+					  float wheel_gear_ratio)
+{
+    uint32_t dt_us = tick_stack[0] - tick_stack[1];
+    uint32_t dc    = cnt_stack[0]  - cnt_stack[1];
+
+    if (dt_us == 0) return 0;
+
+    // RPM = (dc * 60 * 1e6) / (PPR * dt_us)
+    uint32_t rpm_encoder = (dc * 60000000UL) / (PPR * dt_us);
+
+    // motor RPM (undo encoder gearbox)
+    float rpm_motor = rpm_encoder * encoder_gear_ratio;
+
+    // wheel RPM (apply wheel gearbox)
+    float rpm_wheel = rpm_motor / wheel_gear_ratio;
+
+    return (uint32_t)rpm_wheel;
+}
+
 
 
 /* USER CODE END 0 */
@@ -153,10 +216,14 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_USART1_UART_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_DMA(&huart1, UART1_rxBuffer, 2);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
+  HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
+  HAL_TIM_Base_Start(&htim1);
 
   TIM2->CCR1 = 0;
   TIM2->CCR2 = 0;
@@ -171,6 +238,13 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  setMotor(UART1_rxBuffer);
+	  //note: 72MHz clk -> 1 tick = 13.88 ns, 1us = 72 ticks. tick_stack[0] = current tick, tick_stack[1] = previous tick
+	  updateAndCapture(tick_stack_TIM3, TIM3_CNT_stack, TIM1, TIM3);
+	  updateAndCapture(tick_stack_TIM4, TIM4_CNT_stack, TIM1, TIM4);
+
+	  RPM_A = calculateRPM(tick_stack_TIM3, TIM3_CNT_stack, 600, ENCODER_GEAR, WHEEL_GEAR);
+	  RPM_B = calculateRPM(tick_stack_TIM4, TIM4_CNT_stack, 600, ENCODER_GEAR, WHEEL_GEAR);
+
   }
   /* USER CODE END 3 */
 }
@@ -248,6 +322,52 @@ static void MX_CAN_Init(void)
   /* USER CODE BEGIN CAN_Init 2 */
 
   /* USER CODE END CAN_Init 2 */
+
+}
+
+/**
+  * @brief TIM1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM1_Init(void)
+{
+
+  /* USER CODE BEGIN TIM1_Init 0 */
+
+  /* USER CODE END TIM1_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM1_Init 1 */
+
+  /* USER CODE END TIM1_Init 1 */
+  htim1.Instance = TIM1;
+  htim1.Init.Prescaler = 71;
+  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim1.Init.Period = 65535;
+  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim1.Init.RepetitionCounter = 0;
+  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM1_Init 2 */
+
+  /* USER CODE END TIM1_Init 2 */
 
 }
 

@@ -60,8 +60,8 @@ all: main-build
 main-build: encoder_test_stm.elf secondary-outputs
 
 # Tool invocations
-encoder_test_stm.elf encoder_test_stm.map: $(OBJS) $(USER_OBJS) D:\Z\projects\Vyadh25-26\Silicon\encoder_test_stm\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "encoder_test_stm.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\Z\projects\Vyadh25-26\Silicon\encoder_test_stm\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="encoder_test_stm.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+encoder_test_stm.elf encoder_test_stm.map: $(OBJS) $(USER_OBJS) D:\Z\projects\Vyadh25-26\Silicon\prototype\encoders\encoder_test_stm\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "encoder_test_stm.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\Z\projects\Vyadh25-26\Silicon\prototype\encoders\encoder_test_stm\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="encoder_test_stm.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

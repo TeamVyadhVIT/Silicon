@@ -3,7 +3,7 @@ import pygame
 
 DEADZONE = 0.05
 
-ser = serial.Serial('COM8', 115200)  # open serial port
+ser = serial.Serial('COM9', 115200)  # open serial port
 print(ser.name)         # check which port was really used
 
 pygame.init()

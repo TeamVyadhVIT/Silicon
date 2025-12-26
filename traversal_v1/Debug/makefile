@@ -60,8 +60,8 @@ all: main-build
 main-build: traversal_v1.elf secondary-outputs
 
 # Tool invocations
-traversal_v1.elf traversal_v1.map: $(OBJS) $(USER_OBJS) C:\Users\Tanmay\Projects\Vyadh25-26\Silicon\module\traversal\traversal_v1\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "traversal_v1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Tanmay\Projects\Vyadh25-26\Silicon\module\traversal\traversal_v1\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="traversal_v1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+traversal_v1.elf traversal_v1.map: $(OBJS) $(USER_OBJS) D:\Z\projects\Vyadh25-26\Silicon\module\traversal\traversal_v1\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "traversal_v1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\Z\projects\Vyadh25-26\Silicon\module\traversal\traversal_v1\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="traversal_v1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

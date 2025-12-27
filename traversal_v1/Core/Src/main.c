@@ -18,7 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include <stdint.h>
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -33,25 +33,6 @@
 /* USER CODE BEGIN PD */
 #define ENCODER_GEAR 9.0f
 #define WHEEL_GEAR   108.0f
-#define LUT_SIZE 128
-
-static const uint16_t turnLUT[LUT_SIZE] = {
-      0,   0,   0,   1,   2,   3,   5,   7,
-     10,  12,  15,  19,  22,  26,  30,  34,
-     38,  43,  48,  53,  58,  63,  69,  74,
-     80,  86,  92,  98, 105, 111, 118, 125,
-    132, 139, 146, 154, 161, 169, 177, 185,
-    193, 201, 210, 218, 227, 236, 245, 254,
-    263, 273, 282, 292, 302, 312, 322, 332,
-    342, 353, 363, 374, 385, 396, 407, 418,
-    429, 441, 452, 464, 476, 488, 500, 512,
-    525, 537, 550, 563, 576, 589, 602, 616,
-    629, 643, 657, 671, 685, 699, 714, 728,
-    743, 758, 773, 788, 803, 819, 834, 850,
-    866, 882, 898, 914, 931, 947, 964, 981,
-    998,1015,1032,1050,1067,1085,1103,1121,
-   1139,1157,1176,1194,1213,1232,1251,1270
-};
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -107,48 +88,105 @@ static void MX_TIM1_Init(void);
 //	}
 //}
 
-void setMotor(uint8_t joystick[2])
-{
-    int x = (int)joystick[0] - 127;   // -127 .. +128
+void setMotor(uint8_t joystick[2]) {
+    int x = (int)joystick[0] - 127;
     int y = (int)joystick[1] - 127;
 
-    int ax = (x < 0) ? -x : x;
-    int ay = (y < 0) ? -y : y;
-
-    if (ax > 127) ax = 127;
-    if (ay > 127) ay = 127;
-
-    // Lookup nonlinear turn gain
-    uint16_t kx = turnLUT[ax];
-    uint16_t ky = turnLUT[ay];
-    uint16_t k  = (kx > ky) ? kx : ky;   // max(x², y²)
-
-    // Apply turning (fixed-point)
-    int turn = (k * x) / 1000;
-
-    int left  = y + turn;
-    int right = y - turn;
-
-    // LEFT motor direction
-    if (left >= 0) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
-    else           HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
-
-    // RIGHT motor direction
-    if (right >= 0) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
-    else            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
-
-    int al = (left  < 0) ? -left  : left;
-    int ar = (right < 0) ? -right : right;
-
-    if (al > 127) al = 127;
-    if (ar > 127) ar = 127;
-
-    // PWM (TIM2 period = 255)
-    TIM2->CCR1 = al * 2;
-    TIM2->CCR2 = ar * 2;
+    if (abs(y) > abs(x)) {
+        // forward / backward
+        if (y > 0) {
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);// FORWARD
+            TIM2->CCR1 = 2 * abs(y);
+            TIM2->CCR2 = 2 * abs(y);// speed = y
+        } else {
+        	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);// BACKWARD
+			TIM2->CCR1 = 2 * abs(y);
+			TIM2->CCR2 = 2 * abs(y);// speed = -y
+        }
+    } else if (abs(x) > abs(y)) {
+        // rotation
+        if (x > 0) {
+        	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);// CW
+			TIM2->CCR1 = 2 * abs(x);
+			TIM2->CCR2 = 2 * abs(x);// speed = x
+        } else {
+        	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);// CCW
+			TIM2->CCR1 = 2 * abs(x);
+			TIM2->CCR2 = 2 * abs(x);// speed = -x
+        }
+    } else {
+    	TIM2->CCR1 = 0;
+		TIM2->CCR2 = 0;
+    }
 }
 
-#define RPM_SAMPLE_PERIOD_US 5000
+int pwmL;
+int pwmR;
+int max;
+
+//void setMotorDifferential(volatile uint8_t joystick[2]) {
+//    int x = (int)joystick[0] - 127;
+//    int y = (int)joystick[1] - 127;
+//
+//	pwmL = abs(2 * (y - x));
+//	pwmR = abs(2 * (y + x));
+//
+//	if (pwmL > 255) pwmL = 255;
+//	if (pwmR > 255) pwmR = 255;
+//
+////    pwmL = abs(y - x);
+////    pwmR = abs(y + x);
+//
+//	TIM2->CCR2 = pwmL;
+//	TIM2->CCR1 = pwmR;
+//
+//	if (y >= 0) {
+//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);// FORWARD
+//	} else {
+//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
+//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);// BACKWARD
+//	}
+//}
+
+void setMotorDifferential(volatile uint8_t joystick[2]) {
+    int x = (int)joystick[0] - 127;
+    int y = (int)joystick[1] - 127;
+
+    pwmL = y;
+    pwmR = y;
+
+    if (y >= 0) {
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
+        if (x > 0) {
+			pwmR -= x;
+		} else if (x < 0) {
+			pwmL += x;
+		}
+    } else {
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
+        if (x > 0) {
+			pwmR += x;
+		} else if (x < 0) {
+			pwmL -= x;
+		}
+    }
+
+    if (pwmL > 255) pwmL = 255;
+	if (pwmR > 255) pwmR = 255;
+
+	TIM2->CCR1 = abs(pwmL * 2);
+	TIM2->CCR2 = abs(pwmR * 2);
+}
+
+
+#define RPM_SAMPLE_PERIOD_US 2000
 
 void updateAndCapture(volatile uint32_t tick_stack[2],
 					  volatile uint32_t TIMx_CNT_stack[2],
@@ -249,8 +287,8 @@ int main(void)
   HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
   HAL_TIM_Base_Start(&htim1);
 
-  TIM2->CCR1 = 0;
-  TIM2->CCR2 = 0;
+  TIM2->CCR1 = 0; //left
+  TIM2->CCR2 = 0; //right
 
   /* USER CODE END 2 */
 
@@ -261,7 +299,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  setMotor(UART1_rxBuffer);
+//	  setMotor(UART1_rxBuffer);
+	  setMotorDifferential(UART1_rxBuffer);
 	  //note: 72MHz clk -> 1 tick = 13.88 ns, 1us = 72 ticks. tick_stack[0] = current tick, tick_stack[1] = previous tick
 	  updateAndCapture(tick_stack_TIM3, TIM3_CNT_stack, TIM1, TIM3);
 	  updateAndCapture(tick_stack_TIM4, TIM4_CNT_stack, TIM1, TIM4);

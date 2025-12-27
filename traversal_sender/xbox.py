@@ -1,9 +1,9 @@
 import serial
 import pygame
 
-DEADZONE = 0.05
+DEADZONE = 0.1
 
-ser = serial.Serial('COM8', 115200)  # open serial port
+ser = serial.Serial('COM9', 115200)  # open serial port
 print(ser.name)         # check which port was really used
 
 pygame.init()
@@ -15,8 +15,8 @@ js.init()
 
 while True:
     pygame.event.pump()
-    axisx_float = js.get_axis(0)
-    axisy_float = js.get_axis(1)
+    axisx_float = js.get_axis(2)
+    axisy_float = js.get_axis(3)
 
     if abs(axisx_float) < DEADZONE:
         axisx_float = 0.0

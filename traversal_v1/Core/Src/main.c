@@ -300,7 +300,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 //	  setMotor(UART1_rxBuffer);
-	  setMotorDifferential(UART1_rxBuffer);
+	  setMotor(UART1_rxBuffer);
 	  //note: 72MHz clk -> 1 tick = 13.88 ns, 1us = 72 ticks. tick_stack[0] = current tick, tick_stack[1] = previous tick
 	  updateAndCapture(tick_stack_TIM3, TIM3_CNT_stack, TIM1, TIM3);
 	  updateAndCapture(tick_stack_TIM4, TIM4_CNT_stack, TIM1, TIM4);

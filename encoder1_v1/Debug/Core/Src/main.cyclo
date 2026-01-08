@@ -1,6 +1,6 @@
 ../Core/Src/main.c:74:5:main	1
 ../Core/Src/main.c:134:6:SystemClock_Config	3
-../Core/Src/main.c:174:13:MX_SPI1_Init	2
+../Core/Src/main.c:174:13:MX_SPI2_Init	2
 ../Core/Src/main.c:211:13:MX_TIM2_Init	3
 ../Core/Src/main.c:260:13:MX_TIM3_Init	3
 ../Core/Src/main.c:309:13:MX_TIM4_Init	3

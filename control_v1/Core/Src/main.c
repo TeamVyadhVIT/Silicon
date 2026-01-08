@@ -78,7 +78,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  uint16_t dummy = 0xFFFF;
+  uint8_t dummy = 0xFF;
   /* USER CODE END Init */
 
   /* Configure the system clock */

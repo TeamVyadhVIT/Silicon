@@ -48,6 +48,7 @@ TIM_HandleTypeDef htim4;
 
 /* USER CODE BEGIN PV */
 volatile uint16_t SPI_enctxBuffer[3] = {0};
+uint16_t rxDummy[4];
 
 /* USER CODE END PV */
 
@@ -121,8 +122,17 @@ int main(void)
 	  SPI_enctxBuffer[1] = e3;
 	  SPI_enctxBuffer[2] = e4;
 
-
-	  HAL_SPI_Transmit(&hspi2, SPI_enctxBuffer, 3, HAL_MAX_DELAY);
+//	  SPI_enctxBuffer[0] = 0x1111;
+//	  SPI_enctxBuffer[1] = 0x2222;
+//	  SPI_enctxBuffer[2] = 0x3333;
+//	  HAL_SPI_Transmit(&hspi2, SPI_enctxBuffer, 4, HAL_MAX_DELAY);
+      HAL_SPI_TransmitReceive(
+          &hspi2,
+		  SPI_enctxBuffer,
+          rxDummy,
+          3,
+		  10
+      );
   }
   /* USER CODE END 3 */
 }
@@ -227,7 +237,7 @@ static void MX_TIM2_Init(void)
   htim2.Init.Period = 65535;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  sConfig.EncoderMode = TIM_ENCODERMODE_TI1;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
   sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
   sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
   sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
@@ -276,7 +286,7 @@ static void MX_TIM3_Init(void)
   htim3.Init.Period = 65535;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  sConfig.EncoderMode = TIM_ENCODERMODE_TI1;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
   sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
   sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
   sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
@@ -325,7 +335,7 @@ static void MX_TIM4_Init(void)
   htim4.Init.Period = 65535;
   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  sConfig.EncoderMode = TIM_ENCODERMODE_TI1;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
   sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
   sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
   sConfig.IC1Prescaler = TIM_ICPSC_DIV1;

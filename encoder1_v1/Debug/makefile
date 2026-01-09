@@ -60,8 +60,8 @@ all: main-build
 main-build: encoder1_v1.elf secondary-outputs
 
 # Tool invocations
-encoder1_v1.elf encoder1_v1.map: $(OBJS) $(USER_OBJS) D:\Z\projects\Vyadh25-26\Silicon\module\traversal\encoder1_v1\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "encoder1_v1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\Z\projects\Vyadh25-26\Silicon\module\traversal\encoder1_v1\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="encoder1_v1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+encoder1_v1.elf encoder1_v1.map: $(OBJS) $(USER_OBJS) /home/santosh/STM32CubeIDE/workspace_2.0.0/encoder1_v1/STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "encoder1_v1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/santosh/STM32CubeIDE/workspace_2.0.0/encoder1_v1/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="encoder1_v1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

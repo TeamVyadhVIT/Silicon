@@ -41,19 +41,23 @@
 
 /* Private variables ---------------------------------------------------------*/
 SPI_HandleTypeDef hspi2;
+DMA_HandleTypeDef hdma_spi2_tx;
 
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim4;
 
 /* USER CODE BEGIN PV */
-volatile uint16_t SPI_enctxBuffer[3] = {0};
+volatile uint8_t SPI_txBuffer[6] = {0};
+
+uint8_t dummy[6];
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_TIM4_Init(void);
@@ -64,6 +68,21 @@ static void MX_SPI2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
+
+	uint16_t e0 = TIM2->CNT;
+	uint16_t e1 = TIM3->CNT;
+	uint16_t e2 = TIM4->CNT;
+	SPI_txBuffer[0] = e0 >> 8;
+	SPI_txBuffer[1] = e0 & 0xFF;
+	SPI_txBuffer[2] = e1 >> 8;
+	SPI_txBuffer[3] = e1 & 0xFF;
+	SPI_txBuffer[4] = e2 >> 8;
+	SPI_txBuffer[5] = e2 & 0xFF;
+
+	HAL_SPI_TransmitReceive_DMA(&hspi2, SPI_txBuffer, dummy, sizeof(dummy));
+}
 
 /* USER CODE END 0 */
 
@@ -96,6 +115,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_TIM4_Init();
@@ -104,6 +124,25 @@ int main(void)
   HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
   HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
   HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
+
+  uint16_t e0 = TIM2->CNT;
+  uint16_t e1 = TIM3->CNT;
+  uint16_t e2 = TIM4->CNT;
+
+  SPI_txBuffer[0] = e0 >> 8;
+  SPI_txBuffer[1] = e0 & 0xFF;
+  SPI_txBuffer[2] = e1 >> 8;
+  SPI_txBuffer[3] = e1 & 0xFF;
+  SPI_txBuffer[4] = e2 >> 8;
+  SPI_txBuffer[5] = e2 & 0xFF;
+
+  HAL_SPI_TxRxCpltCallback(&hspi2);
+
+//  HAL_SPI_Transmit_DMA(&hspi2, SPI_txBuffer, sizeof(SPI_txBuffer));
+//  HAL_SPI_TransmitReceive_DMA(&hspi2, SPI_txBuffer, dummy, sizeof(dummy));
+
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -113,16 +152,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  uint16_t e2 = TIM2->CNT;
-	  uint16_t e3 = TIM3->CNT;
-	  uint16_t e4 = TIM4->CNT;
-
-	  SPI_enctxBuffer[0] = e2;
-	  SPI_enctxBuffer[1] = e3;
-	  SPI_enctxBuffer[2] = e4;
-
-
-	  HAL_SPI_Transmit(&hspi2, SPI_enctxBuffer, 3, HAL_MAX_DELAY);
   }
   /* USER CODE END 3 */
 }
@@ -185,7 +214,7 @@ static void MX_SPI2_Init(void)
   hspi2.Instance = SPI2;
   hspi2.Init.Mode = SPI_MODE_SLAVE;
   hspi2.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi2.Init.DataSize = SPI_DATASIZE_16BIT;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi2.Init.NSS = SPI_NSS_HARD_INPUT;
@@ -351,20 +380,48 @@ static void MX_TIM4_Init(void)
 }
 
 /**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel5_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel5_IRQn);
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
   */
 static void MX_GPIO_Init(void)
 {
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
   /* USER CODE BEGIN MX_GPIO_Init_1 */
 
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PC13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 

@@ -3,7 +3,7 @@ import pygame
 
 DEADZONE = 0.1
 
-ser = serial.Serial('COM9', 115200)
+ser = serial.Serial('COM11', 115200)
 
 pygame.init()
 pygame.joystick.init()
@@ -54,5 +54,7 @@ while True:
     right_pwm = int(abs(right) * 255)
 
     ser.write(bytes([left_pwm, left_dir, right_pwm, right_dir]))
+    # ser.write(bytes(([left_dir, left_pwm, right_dir, right_pwm])))
+
 
     print(left_pwm, left_dir, right_pwm, right_dir)

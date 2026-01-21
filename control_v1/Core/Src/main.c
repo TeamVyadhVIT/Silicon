@@ -159,7 +159,7 @@ void setMotor_direct(volatile uint8_t cmd[4]) {
     right_pwm = cmd[2];  // 0–255
     right_dir = cmd[3];  // 0 = forward, 1 = backward
 
-    if (left_dir == 1) {
+    if (left_dir == 0) {
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
@@ -181,14 +181,14 @@ void setMotor_direct(volatile uint8_t cmd[4]) {
     }
 
     // Left motors (CCR1)
-    TIM2->CCR1 = left_pwm;
-    TIM3->CCR1 = left_pwm;
-    TIM4->CCR1 = left_pwm;
+    TIM2->CCR1 = right_pwm;
+    TIM3->CCR1 = right_pwm;
+    TIM4->CCR1 = right_pwm;
 
     // Right motors (CCR2)
-    TIM2->CCR2 = right_pwm;
-    TIM3->CCR2 = right_pwm;
-    TIM4->CCR2 = right_pwm;
+    TIM2->CCR2 = left_pwm;
+    TIM3->CCR2 = left_pwm;
+    TIM4->CCR2 = left_pwm;
 }
 
 bool encBuffer_flag = 0;
